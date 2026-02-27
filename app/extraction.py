@@ -49,6 +49,7 @@ if __name__ == '__main__':
     for i, p in enumerate(paragraphs, 1):
         json_para = json.dumps({
             "paragraph_number": i,
+            "section": "unknown",
             "text": p
         })
         print(json_para)
