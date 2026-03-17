@@ -1,6 +1,8 @@
 venv 
 ./venv
 .venv
+./app_venv
+app_venv
 # Python
 __pycache__/
 *.pyc

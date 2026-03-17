@@ -3,20 +3,7 @@ import re
 from statistics import mean
 import pprint
 from langchain_core.documents import Document
-    
-    
-def convert_into_docs(sections):
-    docs = []
-    for section in sections:
-        doc = Document(
-            page_content=section["text"],
-            metadata={
-                "title": section["title"],
-                "page": section["page"]
-            }
-        )
-        docs.append(doc)
-    return docs
+
 
 def merge_title_and_text(sections):
     merged_sections = []
@@ -29,41 +16,41 @@ def merge_title_and_text(sections):
         #if section is a title then I need to replace the previous title with the new title
         #else if the section is text then I need to append it to the current text
         
-        # if section['title'] != '':
+        if section['title'] != '':
             
-        #     if cur_title is not None and cur_text is not None:
-        #         merged_sections.append({
-        #             "title": cur_title.strip(),
-        #             "text": cur_text.strip(),
-        #             "page": list(set(page_list if page_list else None))
-        #         })
-                
-        #     cur_title = section['title']
-        #     cur_text = ""
-        #     page_list = [section['page']]      
-        # else:
-            
-        #      cur_text += section['text'] + "\n"
-        #      page_list.append(section['page'])   
-        
-        
-        if section["title"]:
             if cur_title != "" and cur_text != "":
                 merged_sections.append({
                     "title": cur_title.strip(),
                     "text": cur_text.strip(),
-                    "page": section["page"]
+                    "page": str(list(set(page_list if page_list else None)))
                 })
-                cur_title = section["title"]
-                cur_text = ""
+                
+            cur_title = section['title']
+            cur_text = ""
+            page_list = [section['page']]      
         else:
-            if section["text"]:
-                cur_text += section["text"] + "\n"
+            
+             cur_text += section['text'] + "\n"
+             page_list.append(section['page'])   
+        
+        
+        # if section["title"]:
+        #     if cur_title != "" and cur_text != "":
+        #         merged_sections.append({
+        #             "title": cur_title.strip(),
+        #             "text": cur_text.strip(),
+        #             "page": section["page"]
+        #         })
+        #         cur_title = section["title"]
+        #         cur_text = ""
+        # else:
+        #     if section["text"]:
+        #         cur_text += section["text"] + "\n"
 
     merged_sections.append({
         "title": cur_title.strip(),
         "text": cur_text.strip(),   
-        "page": list(set(page_list)) if page_list else []
+        "page": str(list(set(page_list)) if page_list else [])
     })
     
     return merged_sections    
@@ -136,9 +123,3 @@ def test_extraction(file_path):
     merged_sections = merge_title_and_text(sections)
     return merged_sections
             
-        
-
-
-if __name__ == "__main__":
-    pdf_path = "../tester_files/research_paper.pdf"
-    pprint.pprint(docs)
