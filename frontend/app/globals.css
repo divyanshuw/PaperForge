@@ -1,0 +1,60 @@
+
+@import "tailwindcss";
+
+
+@theme{
+    /* Primary Color */
+    --color-santa-fe-50: #fbf5f1;
+    --color-santa-fe-100: #f5e8df;
+    --color-santa-fe-200: #eacfbe;
+    --color-santa-fe-300: #ddae94;
+    --color-santa-fe-400: #ce8669;
+    --color-santa-fe-500: #c56e51;
+    --color-santa-fe-600: #b55641;
+    --color-santa-fe-700: #974437;
+    --color-santa-fe-800: #7a3932;
+    --color-santa-fe-900: #63302b;
+    --color-santa-fe-950: #351715;
+
+    /* Secondary color */
+    --color-siam-50: #f9faf9;
+    --color-siam-100: #f4f5f4;
+    --color-siam-200: #e7e8e3;
+    --color-siam-300: #d6d8cf;
+    --color-siam-400: #a8ac9a;
+    --color-siam-500: #6b705c;
+    --color-siam-600: #545b4a;
+    --color-siam-700: #424739;
+    --color-siam-800: #2b2b22;
+    --color-siam-900: #1c1e15;
+    --color-siam-950: #0c0d08;
+
+    /* Tertiary color */
+    --color-tallow-50: #f9fbf8;
+    --color-tallow-100: #f4f6f3;
+    --color-tallow-200: #e9e9e2;
+    --color-tallow-300: #d9d9ce;
+    --color-tallow-400: #a5a58d;
+    --color-tallow-500: #7f7f65;
+    --color-tallow-600: #595c49;
+    --color-tallow-700: #474937;
+    --color-tallow-800: #2c2a21;
+    --color-tallow-900: #1f1f14;
+    --color-tallow-950: #0e0e07;
+
+    /* neutral color */
+    --color-desert-storm-50: #f9f8f6;
+    --color-desert-storm-100: #eeebe6;
+    --color-desert-storm-200: #dcd6cc;
+    --color-desert-storm-300: #c6bcab;
+    --color-desert-storm-400: #af9e88;
+    --color-desert-storm-500: #9e8871;
+    --color-desert-storm-600: #917965;
+    --color-desert-storm-700: #796355;
+    --color-desert-storm-800: #645248;
+    --color-desert-storm-900: #52443c;
+    --color-desert-storm-950: #2b231f;
+
+
+
+}
