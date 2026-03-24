@@ -7,7 +7,7 @@ export default function SocialLoginIcons() {
     return (
         <div className="flex justify-center gap-6 my-2">
             <button 
-                onClick={() => signIn("google")}
+                onClick={() => window.location.href = '/api/auth/google'}
                 className="flex items-center justify-center w-12 h-12 bg-white border border-desert-storm-300 rounded-full hover:bg-desert-storm-100 transition-all hover:shadow-md hover:cursor-pointer active:scale-95"
                 aria-label="Sign in with Google"
             >
