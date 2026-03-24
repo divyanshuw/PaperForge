@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "motion/react";
 import { FileText, BrainCircuit, Database, UploadCloud, CheckCircle2 } from "lucide-react";
 
@@ -10,6 +11,10 @@ export const Features = () => (
       </div>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           whileHover={{ y: -5 }}
           className="md:col-span-7 bg-white rounded-xl p-10 ambient-shadow paper-edge"
         >
@@ -35,6 +40,10 @@ export const Features = () => (
         </motion.div>
 
         <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           whileHover={{ y: -5 }}
           className="md:col-span-5 bg-white rounded-xl p-10 ambient-shadow paper-edge flex flex-col text-center items-center justify-center"
         >
@@ -46,6 +55,10 @@ export const Features = () => (
         </motion.div>
 
         <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           whileHover={{ y: -5 }}
           className="md:col-span-12 bg-white rounded-xl p-12 ambient-shadow paper-edge relative overflow-hidden group"
         >

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { motion } from "motion/react";
 import { Sparkles, Link as LinkIcon } from "lucide-react";
 
@@ -18,10 +18,10 @@ export const Hero = () => (
           Transform fragmented notes into a cohesive knowledge base. Archivist uses advanced RAG technology to synthesize your research into actionable insights.
         </p>
         <div className="flex flex-wrap gap-4">
-          <button className="santa-fe-gradient text-white px-10 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:-translate-y-0.5 transition-all">
+          <button className="santa-fe-gradient text-white px-10 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:-translate-y-0.5 transition-all hover:cursor-pointer active:translate-y-0">
             Begin Your Research
           </button>
-          <button className="px-10 py-4 rounded-full text-lg font-semibold border-2 border-desert-storm-200 hover:bg-desert-storm-100 transition-colors">
+          <button className="px-10 py-4 rounded-full text-lg font-semibold border-2 border-desert-storm-200 hover:bg-desert-storm-100 transition-colors hover:cursor-pointer">
             View Demo
           </button>
         </div>
@@ -52,8 +52,8 @@ export const Hero = () => (
             <div className="h-32 w-full rounded-lg bg-white mb-4 overflow-hidden">
               <img
                 className="w-full h-full object-cover grayscale opacity-50"
-                src="https://picsum.photos/seed/archive/400/300"
-                alt="Digital nodes"
+                src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=400&q=80"
+                alt="Classic library book shelves"
                 referrerPolicy="no-referrer"
               />
             </div>
