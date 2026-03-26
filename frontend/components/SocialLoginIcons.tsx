@@ -19,7 +19,7 @@ export default function SocialLoginIcons() {
                 </svg>
             </button>
             <button 
-                onClick={() => signIn("github")}
+                onClick={() => window.location.href = '/api/auth/github'}
                 className="flex items-center justify-center w-12 h-12 bg-white border border-desert-storm-300 rounded-full hover:bg-desert-storm-100 transition-all hover:shadow-md hover:cursor-pointer active:scale-95 text-[#24292e]"
                 aria-label="Sign in with GitHub"
             >
@@ -28,3 +28,4 @@ export default function SocialLoginIcons() {
         </div>
     );
 }
+

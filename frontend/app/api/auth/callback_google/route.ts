@@ -1,6 +1,6 @@
 import { NextRequest,NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { POST } from "../[...nextauth]/route";
+
 
 export async function GET(req: NextRequest){
     const code = req.nextUrl.searchParams.get("code");
@@ -12,14 +12,14 @@ export async function GET(req: NextRequest){
             code,
             client_id: process.env.GOOGLE_CLIENT_ID,
             client_secret: process.env.GOOGLE_CLIENT_SECRET,
-            redirect_uri: `${ process.env.GOOGLE_REDIRECT_URL}/api/auth/callback`,
+            redirect_uri: `${ process.env.BASE_URL}/api/auth/callback`,
             grant_type: "authorization_code",
         }),
     })
 
     const tokenData = await token.json();
 
-    const userRes = await fetch("https://www.googlapis.com/oauth2/v3/userinfo",{
+    const userRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo",{
         headers:{
             Authorization: `Bearer ${tokenData.access_token}`
         },
