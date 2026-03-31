@@ -4,7 +4,7 @@ import Link from "next/link";
 export const Navbar = () => (
   <nav className="sticky top-0 z-50 bg-desert-storm-100/80 backdrop-blur-md flex justify-between items-center px-8 py-4 w-full">
     <div className="text-2xl font-bold italic text-santa-fe-600 font-serif">
-      PaperForge
+      Archivist
     </div>
     <div className="hidden md:flex items-center gap-8">
       <a className="text-santa-fe-600 font-semibold border-b-2 border-santa-fe-600 font-serif text-lg tracking-tight" href="#">Research</a>
