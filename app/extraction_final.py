@@ -1,8 +1,22 @@
 import pymupdf
 import re
 from statistics import mean
-import pprint
 from langchain_core.documents import Document
+from typing import TypedDict, cast
+
+class SpanDict(TypedDict):
+    text: str
+    size: float
+
+class LineDict(TypedDict):
+    spans: list[SpanDict]
+    
+class BlockDict(TypedDict):
+    type: int
+    lines: list[LineDict]
+    
+class TextDict(TypedDict):
+    blocks: list[BlockDict]
 
 
 def merge_title_and_text(sections):
@@ -22,7 +36,7 @@ def merge_title_and_text(sections):
                 merged_sections.append({
                     "title": cur_title.strip(),
                     "text": cur_text.strip(),
-                    "page": str(list(set(page_list if page_list else None)))
+                    "page": str(list(set(page_list)) if page_list else [])
                 })
                 
             cur_title = section['title']
@@ -54,10 +68,8 @@ def merge_title_and_text(sections):
     })
     
     return merged_sections    
-    
-            
-            
-def test_extraction(file_path):
+                
+def text_extraction(file_path):
     
     doc = pymupdf.open(file_path)
     
@@ -65,8 +77,8 @@ def test_extraction(file_path):
     
     # extracting all the text sizes to determin the mean so that sections can be segregated based on text size
     for page in doc:
-        
-        text_dict = page.get_text("dict")
+        textpage = page.get_textpage()
+        text_dict = cast(TextDict, textpage.extractDICT())
         for block in text_dict["blocks"]:
             
             if block["type"] == 0:
@@ -82,8 +94,10 @@ def test_extraction(file_path):
     sections = []
 
     
-    for page_no,page in enumerate(doc):
-        text_dict = page.get_text("dict")
+    for page_no in range(doc.page_count):
+        page = doc.load_page(page_no)
+        textpage = page.get_textpage()
+        text_dict = cast(TextDict, textpage.extractDICT())
         
         for block in text_dict["blocks"]:
             if block["type"] != 0:
