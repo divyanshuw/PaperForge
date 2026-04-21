@@ -13,7 +13,9 @@ os.environ['TQDM_DISABLE'] = '1'
 
 try:
     from tqdm import tqdm
-    tqdm.disable(disable=True)
+    # Mute tqdm globally by redefining its __init__ to always set disable=True
+    import functools
+    tqdm.__init__ = functools.partialmethod(tqdm.__init__, disable=True)
 except ImportError:
     pass
 

@@ -1,23 +1,26 @@
 import click
 from app.db import query_db, upsert_embeddings  # You can also import from: app.embedding, app.chunking, etc.
-from app.model import ask_gemini
 from app.extraction_final import text_extraction
 from app.embedding import embed_sections, embed_query
+from app.model import ask_gemini
 
 @click.command()
 @click.argument('query')
-@click.option("--fast",'-f',is_flag=True,help="Get the results faster but with less accuracy")
-def query(query: str, fast : bool):
+@click.option("--pro",'-p',is_flag=True,help="Get the results faster but with less accuracy")
+def query(query: str, pro : bool):
     context = query_db(query)
-        
-    if fast:
+
+    if pro:
         click.secho(f"Getting results for query:", fg='yellow')
         click.secho(f"{query} (fast mode)", fg='green')
-        # response  = ask_gemini(query,context fast = True)
+        response = ask_gemini(query, context)
     else:
         click.secho(f"Getting results for query:", fg='yellow')
         click.secho(f"{query}", fg='red')
-        # response = ask_gemini(query_ann, context ,fast = False)
+        response = ask_gemini(query, context)
+    
+    click.secho(f"Response:", fg='yellow')
+    click.secho(f"{response}", fg='green')
         
 @click.command()
 @click.argument('doc_url')        

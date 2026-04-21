@@ -1,6 +1,6 @@
-from extraction_final import text_extraction    
-from embedding import embed_sections
-from db import upsert_embeddings
+from app.extraction_final import text_extraction    
+from app.embedding import embed_sections
+from app.db import upsert_embeddings
 
 
 

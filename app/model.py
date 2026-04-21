@@ -1,46 +1,37 @@
-import os
-from typing import Optional
-import requests
-from dotenv import load_dotenv
+from google import genai 
+from google.genai import types
 
-GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+client = genai.Client()
 
-
-def ask_gemini(prompt: str,context: str ,fast:bool = False) -> str:
-    load_dotenv()
-    if fast:
-        model = "gemini-3.1-flash"
-    else:
+def ask_gemini(prompt: str,context: str ,think :bool = False) -> str:
+  
+    model = "gemini-2.5-flash"
+    if(think == True):
         model = "gemini-2.5-pro"
-    api_key: Optional[str] = os.getenv("GEMINI_API_KEY")
 
-    if not api_key:
-        raise ValueError("GEMINI_API_KEY is not set in .env")
-
-    url = GEMINI_ENDPOINT.format(model=model)
-    headers = {"Content-Type": "application/json"}
-    payload = {
-        "contents": [
-            {
-                "parts": [{"text": prompt}],
-            }
-        ]
-    }
-
-    response = requests.post(
-        f"{url}?key={api_key}",
-        headers=headers,
-        json=payload,
-        timeout=30,
+    contents = types.Content(
+        role ='user',
+        parts = [types.Part(text=context),types.Part(text=prompt)]
     )
-    response.raise_for_status()
 
+    response = client.models.generate_content(
+        model=model,
+        contents=contents,
+        config=types.GenerateContentConfig(
+            temperature=0.7,
+            top_p=0.9,
+            top_k=40,
+        ),
+    )
+    
     data = response.json()
     candidates = data.get("candidates", [])
     if not candidates:
         return "No response from Gemini."
 
     parts = candidates[0].get("content", {}).get("parts", [])
+
+    client.close()
     return "".join(part.get("text", "") for part in parts).strip()
 
 

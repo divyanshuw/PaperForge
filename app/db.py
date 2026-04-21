@@ -14,8 +14,8 @@ load_dotenv(env_file)
 timeout = 500
 start_time = time.monotonic()
 
+# Pinecone Client initialization and key check
 pine_key = os.getenv("PINECONE_API_KEY")
-print(f"Pinecone API Key: {'Found' if pine_key else 'Not Found'}")
 if not pine_key:
     print("ERROR: PINECONE_API_KEY not set in .env file")
 pine_client = Pinecone(api_key=pine_key)
@@ -34,13 +34,9 @@ if "archivist" not in pine_client.list_indexes().names():
        #Check for timeout
        if time.monotonic() - start_time > timeout:
             raise TimeoutError("Index creation timed out.")
-    print("Index 'archivist' is ready.")
-else:
-    print("Index 'archivist' already exists.")
     
 # Initialize the index object
 index = pine_client.Index('archivist')
-print("Pinecone index initialized successfully.")
 
 # Upsertion logic
 def  upsert_embeddings(sections,embeddings):
@@ -56,7 +52,7 @@ def  upsert_embeddings(sections,embeddings):
         id += 1
     index.upsert(vectors=data_to_upsert)
 
-
+# dense vector conversion?
 def _to_dense_vector(embedding: Any) -> list[float]:
     if isinstance(embedding, dict):
         dense = embedding.get("dense_vecs")
@@ -91,15 +87,10 @@ def query_db(query : str, top_k: int = 5):
         print(f"Metadata keys: {response.matches[0].metadata.keys() if hasattr(response.matches[0], 'metadata') else 'N/A'}")
     
     context = [match["metadata"]["text"] for match in response.matches if "text" in match.get("metadata", {})]
-    pprint.pprint(context)
+    context = " ".join(context)
     return context
 
-
-if __name__ == "__main__":
-    # Check index stats first
+def status_check():
     stats = index.describe_index_stats()
-    print(f"\nIndex Stats: {stats}")
-    print(f"Total vectors in index: {stats['total_vector_count'] if stats else 'N/A'}")
+    return stats
     
-    query = "What is the capital of France?"
-    result = query_db(query)

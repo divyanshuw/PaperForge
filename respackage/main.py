@@ -1,9 +1,7 @@
 import click
 
-try:
-    from . import query
-except ImportError:
-    import respackage.query as query
+import respackage.query as query
+import respackage.status as status
 
 
 @click.group()
@@ -12,4 +10,4 @@ def cli()->None:
     
 cli.add_command(query.query)
 cli.add_command(query.upsert)
- 
+cli.add_command(status.status)
